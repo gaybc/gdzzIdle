@@ -1,4 +1,4 @@
-module gdzzIdle
+module github.com/gaybc/gdzzIdle
 
 go 1.12
 
