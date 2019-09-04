@@ -13,13 +13,15 @@ var Users = make(map[string]interface{})
 
 func main() {
 
-	go guajiTask("mao0403603bu")
+	go StartIdle("mao0403603bu")
 	time.Sleep(time.Duration(5) * time.Second)
 	time.Sleep(time.Duration(6000) * time.Second)
 }
 
-
-func guajiTask(loginName string) {
+func StopIdle(loginName string){
+	Users[loginName] = nil
+}
+func StartIdle(loginName string) {
 	stop := make(chan int)
 	ws, err := websocket.Dial(serverip, "", origin)
 	if err != nil {
@@ -38,7 +40,7 @@ func guajiTask(loginName string) {
 		if err != nil {
 			fmt.Println("read:", err)
 			time.Sleep(time.Duration(6) * time.Second)
-			guajiTask(loginName)
+			StartIdle(loginName)
 		}
 
 		fmt.Printf(" %s\n", msg)
